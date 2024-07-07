@@ -1,29 +1,25 @@
+/* eslint-disable no-unused-vars */
 import { useQuery } from "@tanstack/react-query";
 import React, { Fragment } from "react";
 
 function Service() {
-  
-
   const fetchContacts = async () => {
     try {
-
       console.log({ msg: "hello world" });
 
       const contacts = await fetch("http://localhost:8000/contacts");
       const data = await contacts.json();
       console.log({ msg: "hello world", data });
       return data;
-
     } catch (error) {
       return error;
     }
   };
- 
 
   const { data, isPending, isError, error } = useQuery({
     queryKey: ["contacts"],
     queryFn: fetchContacts,
-    enabled:true
+    enabled: true,
   });
 
   return (

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMutation } from "@tanstack/react-query";
@@ -136,22 +137,22 @@ const Contact = () => {
 
   // Using useMutation
   const mutation = useMutation({
-    mutationFn:async (formData) => {
+    mutationFn: async (formData) => {
       console.log("formData", formData);
       console.log(formData);
-      return await fetch(URL,{
+      return await fetch(URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        
-        body: JSON.stringify(formData),
 
-       });
-      ;
+        body: JSON.stringify(formData),
+      }).then((res) => res.json());
     },
     onSuccess: (data) => {
       console.log("Submission successful:", data);
+
+      alert("Submission successful");
       // setUser(initialValues);
       navigate("/contact");
     },
@@ -229,7 +230,7 @@ const Contact = () => {
                         </p>
                       )}
                     </div>
-                   
+
                     {/* User Email */}
                     <div className="flex flex-col md:w-full">
                       <label htmlFor="email" className="mt-4">
@@ -259,7 +260,7 @@ const Contact = () => {
                     </div>
                   </div>
 
-                 {/* Phone Number */} 
+                  {/* Phone Number */}
                   <div className="md:flex md:gap-3">
                     <div className="flex flex-col md:w-full">
                       <label htmlFor="number" className="mt-4">
@@ -288,8 +289,7 @@ const Contact = () => {
                       )}
                     </div>
 
-                  
-                  {/* Company Name */}
+                    {/* Company Name */}
                     <div className="flex flex-col md:w-full">
                       <label htmlFor="company" className="mt-4">
                         Company Name <span>(Optional)</span>
@@ -508,12 +508,12 @@ const Contact = () => {
               <div className="mt-8 mb-10 ml-10 md:ml-0">
                 <button
                   type="submit"
-                  disabled={mutation.isLoading}
+                  disabled={mutation?.isPending}
                   className={`flex py-[14px] px-20 bg-[#0060AF] text-white rounded-xl gap-2 ${
-                    mutation.isLoading && "opacity-50 cursor-not-allowed"
+                    mutation.isPending && "opacity-50 cursor-not-allowed"
                   }`}
                 >
-                  {mutation.isLoading ? "Sending..." : "Send an Inquiry"}
+                  {mutation.isPending ? "Sending..." : "Send an Inquiry"}
                 </button>
               </div>
             </form>

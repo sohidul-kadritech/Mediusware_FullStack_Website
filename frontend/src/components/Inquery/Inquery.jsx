@@ -1,32 +1,11 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import Modal from './Modal';
+/* eslint-disable no-unused-vars */
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import Modal from "./Modal";
+import { useQuery } from "@tanstack/react-query";
 
 const Inquery = () => {
-  const [users, setUsers] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const response = await axios.get('http://localhost:8000/contacts', {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (response.data.contacts) {
-        setUsers(response.data.contacts);
-      } else {
-        console.error('Response is not an array:', response.data);
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
 
   const openModal = () => {
     setModalOpen(true);
@@ -65,11 +44,14 @@ const Inquery = () => {
         </table>
       </div> */}
 
-      <button className="bg-blue-500 px-3 py-2 text-white rounded-md font-semibold mt-4" onClick={openModal}>
-         Show All Inquiry
+      <button
+        className="bg-blue-500 px-3 py-2 text-white rounded-md font-semibold mt-4"
+        onClick={openModal}
+      >
+        Show All Inquiry
       </button>
 
-      <Modal isOpen={modalOpen} closeModal={closeModal} inquiries={users} />  
+      <Modal isOpen={modalOpen} closeModal={closeModal} />
     </div>
   );
 };
